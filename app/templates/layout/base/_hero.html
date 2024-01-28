@@ -1,0 +1,59 @@
+<!-- _hero.html component -->
+<div class="bg-white h-screen flex items-center justify-center text-center">
+    <div class="px-6 md:px-12">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4 md:mb-8">
+            Welcome to <strong>statusone</strong>
+        </h1>
+        <p class="text-xl md:text-2xl mb-8 md:mb-12">
+            A free and open source status page. Built with 
+            <span class="hidden" id="flask">
+                <img src="static/images/icons/flask.svg" alt="Flask" class="inline-block w-6 h-6"> Flask
+            </span>
+            <span class="hidden" id="comma1">, </span>
+            <span class="hidden" id="tailwind">
+                <img src="static/images/icons/tailwind1.svg" alt="TailwindCSS" class="inline-block w-6 h-6"> TailwindCSS
+            </span>
+            <span class="hidden" id="and"> and </span>
+            <span class="hidden" id="supabase">
+                <img src="static/images/icons/supabase.svg" alt="Supabase" class="inline-block w-6 h-6"> Supabase
+            </span>.
+        </p>
+        <a href="#services" class="bg-black text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-700 transition duration-300">
+            Explore More
+        </a>
+    </div>
+</div>
+
+
+<style>
+    #flask {
+        background: linear-gradient(45deg, #5271FF, #00B3CC);
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+
+    #tailwind {
+        background: linear-gradient(45deg, #06B6D4, #38BDF8);
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+
+    #supabase {
+        background: linear-gradient(45deg, #3ECF8E, #FFC15E);
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+</style>
+
+<script>
+    $(document).ready(function() {
+        // Sequentially fade in each element
+        $('#flask').fadeIn(2000); // 2 seconds for Flask
+        $('#comma1').delay(2000).fadeIn(500); // Fade in the first comma
+        $('#tailwind').delay(2500).fadeIn(2000); // 4.5 seconds for TailwindCSS
+        $('#and').delay(4500).fadeIn(500); // Fade in "and"
+        $('#supabase').delay(5000).fadeIn(2000); // 7 seconds for Supabase
+    });
+</script>
+
+

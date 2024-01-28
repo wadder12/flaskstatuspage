@@ -1,0 +1,17 @@
+<!-- home/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'layout/base/_head.html' %}
+</head>
+<body>
+    {% include 'layout/base/_navbar.html' %}
+
+    {% include 'layout/base/_hero.html' %}
+
+    {% include 'layout/base/_footer.html' %}
+
+    <!-- Link to JavaScript file -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
