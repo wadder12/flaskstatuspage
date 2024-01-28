@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - statusone</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white h-screen flex flex-col items-center justify-center">
+
+  <div class="border-2 border-dotted border-black p-10 rounded-lg shadow-lg">
+    <h1 class="text-4xl font-bold mb-4">Login to <strong>statusone</strong></h1>
+    <p class="mb-8 text-xl">
+      Access your status page dashboard.
+    </p>
+
+    <form class="space-y-4" method="POST" action="/auth/login">
+      <div>
+        <input type="text" placeholder="Username" name="username" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+      </div>
+      
+      <div>
+        <input type="password" placeholder="Password" name="password" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+      </div>
+
+      <button type="submit" class="w-full bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition duration-300">
+        Login
+      </button>
+    </form>
+  </div>
+
+</body>
+</html>

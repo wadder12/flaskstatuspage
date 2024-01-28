@@ -10,15 +10,15 @@
         <!-- Desktop Menu -->
         <div class="hidden w-full md:flex md:items-center md:w-auto md:flex-row">
             <a class="inline-block text-black no-underline p-2 rounded transition-all duration-300 hover-dashed-outline" href="/">Home</a>
-            <a class="inline-block text-black no-underline p-2 rounded transition-all duration-300 hover-dashed-outline" href="/dashboard">Login</a>
-            <a class="inline-block text-black no-underline p-2 rounded transition-all duration-300 hover-dashed-outline" href="/statuspage">Signup</a>
+            <a class="inline-block text-black no-underline p-2 rounded transition-all duration-300 hover-dashed-outline" href="/auth/login">Login</a>
+            <a class="inline-block text-black no-underline p-2 rounded transition-all duration-300 hover-dashed-outline" href="/auth/signup">Signup</a>
         </div>
         <!-- Moblie View -->
         <div class="absolute hidden w-full bg-white shadow-md" id="mobile-menu" style="top: 100%;">
             <div class="flex flex-col justify-end content-center">
                 <a class="mobile-nav-link block text-black no-underline p-2 rounded hover:bg-gray-100 w-full" href="/">Home</a>
-                <a class="mobile-nav-link block text-black no-underline p-2 rounded hover:bg-gray-100 w-full" href="/dashboard">Login</a>
-                <a class="mobile-nav-link block text-black no-underline p-2 rounded hover:bg-gray-100 w-full" href="/statuspage">Signup</a>
+                <a class="mobile-nav-link block text-black no-underline p-2 rounded hover:bg-gray-100 w-full" href="/auth/login">Login</a>
+                <a class="mobile-nav-link block text-black no-underline p-2 rounded hover:bg-gray-100 w-full" href="/auth/signup">Signup</a>
             </div>
         </div>
     </div>
@@ -35,13 +35,13 @@
 }
 .mobile-nav-link {
         border-bottom: 5px dotted black;
-        padding-bottom: 5px; /* Adds padding at the bottom */
-        transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
+        padding-bottom: 5px; 
+        transition: all 0.3s ease-in-out; 
     }
 
     .mobile-nav-link:hover {
-        color: darkblue; /* Changes text color on hover */
-        border-bottom: 5px dotted darkblue; /* Changes border color on hover */
+        color: darkblue;
+        border-bottom: 5px dotted darkblue; 
         background-color: lightgray; /* Changes background color on hover */
     }
 
@@ -56,7 +56,6 @@
             $('#mobile-menu').toggle('fast');
             var icon = $(this).find('i');
             
-            // Rotate and fade out the current icon
             icon.animate({ 
                 deg: 180,
                 opacity: 0
@@ -66,9 +65,7 @@
                     $(this).css({ transform: 'rotate(' + now + 'deg)' });
                 },
                 complete: function() {
-                    // Toggle the icon classes after the animation
                     icon.toggleClass('fa-bars fa-times');
-                    // Reset rotation and fade in the new icon
                     icon.css({ transform: 'rotate(-180deg)' });
                     icon.animate({ 
                         deg: 0,

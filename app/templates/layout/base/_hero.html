@@ -1,6 +1,7 @@
 <!-- _hero.html component -->
 <div class="bg-white h-screen flex items-center justify-center text-center">
-    <div class="px-6 md:px-12">
+    <div class="px-6 md:px-12 bordered-container">
+
         <h1 class="text-4xl md:text-6xl font-bold mb-4 md:mb-8">
             Welcome to <strong>statusone</strong>
         </h1>
@@ -11,7 +12,7 @@
             </span>
             <span class="hidden" id="comma1">, </span>
             <span class="hidden" id="tailwind">
-                <img src="static/images/icons/tailwind1.svg" alt="TailwindCSS" class="inline-block w-6 h-6"> TailwindCSS
+                <img src="static/images/icons/tailwind1.svg" alt="Tailwind" class="inline-block w-6 h-6"> Tailwind
             </span>
             <span class="hidden" id="and"> and </span>
             <span class="hidden" id="supabase">
@@ -19,13 +20,22 @@
             </span>.
         </p>
         <a href="#services" class="bg-black text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-700 transition duration-300">
-            Explore More
+            Sign-up Now
         </a>
     </div>
+
 </div>
 
 
 <style>
+    .bordered-container {
+        border: 2px dotted black;
+        padding: 20px;
+        border-radius: 15px; /* Rounded corners */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        margin: 20px; /* Add some space around the container */
+    }
+
     #flask {
         background: linear-gradient(45deg, #5271FF, #00B3CC);
         -webkit-background-clip: text;
@@ -45,9 +55,9 @@
     }
 </style>
 
+
 <script>
     $(document).ready(function() {
-        // Sequentially fade in each element
         $('#flask').fadeIn(2000); // 2 seconds for Flask
         $('#comma1').delay(2000).fadeIn(500); // Fade in the first comma
         $('#tailwind').delay(2500).fadeIn(2000); // 4.5 seconds for TailwindCSS

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - statusone</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <style>
+    /* Toast Notification Styling */
+    #toast {
+      visibility: hidden;
+      min-width: 250px;
+      margin-left: -125px;
+      background-color: green;
+      color: white;
+      text-align: center;
+      border-radius: 2px;
+      padding: 16px;
+      position: fixed;
+      z-index: 1;
+      left: 50%;
+      bottom: 30px;
+      font-size: 17px;
+    }
+
+    #toast.show {
+      visibility: visible;
+      -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+    @-webkit-keyframes fadein {
+      from {bottom: 0; opacity: 0;} 
+      to {bottom: 30px; opacity: 1;}
+    }
+
+    @keyframes fadein {
+      from {bottom: 0; opacity: 0;}
+      to {bottom: 30px; opacity: 1;}
+    }
+
+    @-webkit-keyframes fadeout {
+      from {bottom: 30px; opacity: 1;} 
+      to {bottom: 0; opacity: 0;}
+    }
+
+    @keyframes fadeout {
+      from {bottom: 30px; opacity: 1;}
+      to {bottom: 0; opacity: 0;}
+    }
+  </style>
+</head>
+<body class="bg-white h-screen flex flex-col items-center justify-center">
+
+  <div class="border-2 border-dotted border-black p-10 rounded-lg shadow-lg">
+    <h1 class="text-4xl font-bold mb-4">Welcome to <strong>statusone</strong></h1>
+    <p class="mb-8 text-xl">
+      A free and open source status page.
+    </p>
+
+    <form class="space-y-4" action="/auth/signup" method="POST">
+        <div>
+        <input type="text" placeholder="Username" name="username" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+      </div>
+      
+      <div>
+        <input type="email" placeholder="Email" name="email" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+      </div>
+      
+      <div>
+        <input type="password" placeholder="Password" name="password" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+      </div>
+      
+      <div>
+        <input type="password" placeholder="Confirm Password" name="confirm_password" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+      </div>
+      
+      <div>
+        <input type="text" placeholder="Status Page Name" name="status_page_name" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+      </div>
+
+      <button type="submit" class="w-full bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition duration-300">
+        Sign-up Now
+      </button>
+    </form>
+  </div>
+  <div id="toast">Signed up successfully!</div>
+
+
+  <script>
+    $(document).ready(function() {
+      function showToast() {
+        var x = $("#toast");
+        x.addClass("show");
+        setTimeout(function(){ x.removeClass("show"); }, 3000);
+      }
+
+      $("form").submit(function(event) {
+        showToast();
+      });
+    });
+  </script>
+</body>
+</html>
