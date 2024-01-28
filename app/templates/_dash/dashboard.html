@@ -7,26 +7,82 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 relative">
 
-  <div class="flex h-screen">
-    <!-- Sidebar -->
-    <div class="w-64 bg-white p-5 shadow-lg">
-      <h2 class="text-xl font-bold mb-5">Dashboard</h2>
-      <!-- Navigation items here -->
+<!-- Toggle Button for Sidebar -->
+<div class="md:hidden absolute top-0 right-0 m-4"> <!-- Positioning classes added -->
+    <button id="sidebarToggle" class="p-2">
+        <img src="static/images/dash/toggle/action1.svg" alt="Toggle Sidebar" class="block w-6 h-6" id="toggleIcon">
+    </button>
+</div>
+
+<div class="flex h-screen">
+
+<!-- Sidebar -->
+<div id="sidebar" class="flex flex-col w-64 bg-white p-5 shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out h-screen overflow-y-auto">
+    
+    <div class="flex-grow">
+        <h2 class="text-xl font-bold mb-5">Dashboard</h2>
+        
+        <!-- User Info Section -->
+        <div class="bg-gray-100 p-4 rounded-lg mb-5">
+            <div class="flex items-center mb-3">
+                <img src="static/images/dash/user.svg" alt="Username Icon" class="w-6 h-6 mr-2">
+                <span class="font-medium">{{ username }}</span>
+            </div>
+        
+            <div class="flex items-center">
+                <img src="static/images/dash/statusname.svg" alt="Status Page Icon" class="w-6 h-6 mr-2">
+                <span class="font-medium">{{ status_page_name }}</span>
+            </div>
+        </div>
+
+        <!-- Sidebar Navigation -->
+        <nav>
+            <ul class="space-y-4 mb-5">
+                <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/fire.svg" alt="Incidents" class="w-6 h-6"><span>Incidents</span></a></li>
+                <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/statupdates.svg" alt="Status Updates" class="w-6 h-6"><span>Status Updates</span></a></li>
+                <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/metric.svg" alt="System Metrics" class="w-6 h-6"><span>System Metrics</span></a></li>
+                <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/people.svg" alt="Team Management" class="w-6 h-6"><span>Team Management</span></a></li>
+                <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/note.svg" alt="Notifications" class="w-6 h-6"><span>User Notifications</span></a></li>
+                <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/api.svg" alt="API Integrations" class="w-6 h-6"><span>API Integrations</span></a></li>
+                <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/log1.svg" alt="Logs" class="w-6 h-6"><span>Logs</span></a></li>
+            </ul>
+        </nav>
     </div>
+
+    <!-- Bottom Section -->
+    <div class="mt-5">
+        <hr class="border-t border-gray-300 mb-4">
+        <ul class="space-y-4 pb-4">
+            <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/setting1.svg" alt="Settings" class="w-6 h-6"><span>Settings</span></a></li>
+            <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/updates.svg" alt="Updates" class="w-6 h-6"><span>Updates</span></a></li>
+            <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/exitme.svg" alt="Logout" class="w-6 h-6"><span>Logout</span></a></li>
+        </ul>
+    </div>
+
+</div>
+
+  
 
     <!-- Main Content -->
-   <!-- Main Content -->
-        <div class="flex-1 p-10">
-            <h1 class="text-3xl font-bold mb-6">Welcome to your Dashboard, {{ username }}</h1>
-            <p>Your Status Page: {{ status_page_name }}</p>
-            <!-- Rest of your dashboard content -->
-        </div>
+    <div class="flex-1 p-10">
+      <h1 class="text-3xl font-bold mb-6">Welcome to your Dashboard</h1>
     </div>
 
+
+  </div>
+
   <script>
-    // Your existing scripts
-  </script>
+    $(document).ready(function() {
+        var isSidebarOpen = false;
+        $('#sidebarToggle').click(function() {
+            $('#sidebar').toggleClass('-translate-x-full');
+            isSidebarOpen = !isSidebarOpen;
+            $('#toggleIcon').attr('src', isSidebarOpen ? 'static/images/dash/toggle/action2.svg' : 'static/images/dash/toggle/action1.svg');
+        });
+    });
+</script>
+
 </body>
 </html>
