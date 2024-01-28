@@ -40,17 +40,18 @@
         <nav>
             <ul class="space-y-4 mb-5">
                 <li>
-                    <a href="#" id="loadIncidents" class="flex items-center space-x-2 bg-[#ff2400] p-2 rounded-lg text-white font-medium">
+                    <a href="#" id="loadIncidents" class="nav-link flex items-center space-x-2 bg-[#ff2400] p-2 rounded-lg text-white font-medium">
+                        <span class="icon-placeholder"></span>
                         <img src="static/images/dash/side/fire.svg" alt="Incidents" class="w-6 h-6">
                         <span>Incidents</span>
                     </a>
                 </li>
-                <li><a href="#" id="loadStatusUpdates" class="flex items-center space-x-2"><img src="static/images/dash/side/statupdates.svg" alt="Status Updates" class="w-6 h-6"><span>Status Updates</span></a></li>
-                <li><a href="#" id="loadSystemMetrics" class="flex items-center space-x-2"><img src="static/images/dash/side/metric.svg" alt="System Metrics" class="w-6 h-6"><span>System Metrics</span></a></li>
-                <li><a href="#" id="loadTeamManagement" class="flex items-center space-x-2"><img src="static/images/dash/side/people.svg" alt="Team Management" class="w-6 h-6"><span>Team Management</span></a></li>
-                <li><a href="#" id="loadUserNotifications" class="flex items-center space-x-2"><img src="static/images/dash/side/note.svg" alt="Notifications" class="w-6 h-6"><span>User Notifications</span></a></li>
-                <li><a href="#" id="loadAPIIntegrations" class="flex items-center space-x-2"><img src="static/images/dash/side/api.svg" alt="API Integrations" class="w-6 h-6"><span>API Integrations</span></a></li>
-                <li><a href="#" id="loadlogs" class="flex items-center space-x-2"><img src="static/images/dash/side/log1.svg" alt="Logs" class="w-6 h-6"><span>Logs</span></a></li>
+                <li><a href="#" id="loadStatusUpdates" class="nav-link flex items-center space-x-2"><img src="static/images/dash/side/statupdates.svg" alt="Status Updates" class="w-6 h-6"><span>Status Updates</span></a></li>
+                <li><a href="#" id="loadSystemMetrics" class="nav-link flex items-center space-x-2"><img src="static/images/dash/side/metric.svg" alt="System Metrics" class="w-6 h-6"><span>System Metrics</span></a></li>
+                <li><a href="#" id="loadTeamManagement" class="nav-link flex items-center space-x-2"><img src="static/images/dash/side/people.svg" alt="Team Management" class="w-6 h-6"><span>Team Management</span></a></li>
+                <li><a href="#" id="loadUserNotifications" class="nav-link flex items-center space-x-2"><img src="static/images/dash/side/note.svg" alt="Notifications" class="w-6 h-6"><span>User Notifications</span></a></li>
+                <li><a href="#" id="loadAPIIntegrations" class="nav-link flex items-center space-x-2"><img src="static/images/dash/side/api.svg" alt="API Integrations" class="w-6 h-6"><span>API Integrations</span></a></li>
+                <li><a href="#" id="loadlogs" class="nav-link flex items-center space-x-2"><img src="static/images/dash/side/log1.svg" alt="Logs" class="w-6 h-6"><span>Logs</span></a></li>
             </ul>
         </nav>
     </div>
@@ -60,7 +61,7 @@
         <hr class="border-t border-gray-300 mb-4">
         <ul class="space-y-4 pb-4">
             <li>
-                <a href="#" id="loadsettings" class="flex items-center space-x-2"><img src="static/images/dash/side/setting1.svg" alt="Settings" class="w-6 h-6"><span>Settings</span></a>
+                <a href="#" id="loadsettings" class="nav-link flex items-center space-x-2"><img src="static/images/dash/side/setting1.svg" alt="Settings" class="w-6 h-6"><span>Settings</span></a>
             </li>
             <li>
                 <a href="#" id="updatesButton" class="relative flex items-center space-x-2 bg-[#ffd700] py-2 px-1 rounded-lg text-white -mx-1">
@@ -107,6 +108,8 @@
         });
     });
 </script>
+
+
 
     
 <script>
@@ -160,13 +163,6 @@
         $('.content-section').hide();
         $('#incidentsContent').show(); // Show the first section 
     
-        // Sidebar Toggle
-        var isSidebarOpen = false;
-        $('#sidebarToggle').click(function() {
-            $('#sidebar').toggleClass('-translate-x-full');
-            isSidebarOpen = !isSidebarOpen;
-            $('#toggleIcon').attr('src', isSidebarOpen ? 'static/images/dash/toggle/action2.svg' : 'static/images/dash/toggle/action1.svg');
-        });
     });
     </script>
     
