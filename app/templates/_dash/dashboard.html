@@ -63,11 +63,13 @@
                 <a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/setting1.svg" alt="Settings" class="w-6 h-6"><span>Settings</span></a>
             </li>
             <li>
-                <a href="#" id="updatesButton" class="flex items-center space-x-2 bg-[#ffd700] py-2 px-1 rounded-lg text-white -mx-1">
+                <a href="#" id="updatesButton" class="relative flex items-center space-x-2 bg-[#ffd700] py-2 px-1 rounded-lg text-white -mx-1">
                     <img src="static/images/dash/side/updates.svg" alt="Updates" class="w-6 h-6">
                     <span>Updates</span>
+                    <span id="updatesIndicator" class="hidden absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full"></span>
                 </a>
             </li>
+            
             <li>
                 <a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/exitme.svg" alt="Logout" class="w-6 h-6"><span>Logout</span></a>
             </li>
@@ -85,21 +87,8 @@
 
   </div>
 
-  <div id="updatesModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full" >
-    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-        <div class="mt-3 text-center">
-            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Latest Updates</h3>
-            <div class="mt-2" id="updatesContent">
-                <!-- Updates will be loaded here -->
-            </div>
-            <div class="items-center px-4 py-3">
-                <button id="closeModal" class="px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400">
-                    Close
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+  {% include 'layout/modals/repo.html' %}
+
 
   <script>
     $(document).ready(function() {
@@ -112,42 +101,7 @@
     });
 </script>
 
-
-<script>
-    $(document).ready(function() {
-        // Function to fetch updates from the public repo
-        function fetchUpdates() {
-            // Here you should put the actual URL of the public repo's updates endpoint
-            $.getJSON('https://api.github.com/repos/username/repo-name/releases', function(data) {
-                var items = [];
-                $.each(data, function(key, val) {
-                    items.push("<li id='" + key + "'>" + val.name + " - " + val.body + "</li>");
-                });
     
-                // Populate the modal with updates
-                $("<ul/>", {
-                    "class": "updates-list",
-                    html: items.join("")
-                }).appendTo("#updatesContent");
-            });
-        }
-    
-        // Click handler for the updates button
-        $('#updatesButton').click(function() {
-            // Empty previous updates
-            $("#updatesContent").empty();
-    
-            // Fetch and show updates
-            fetchUpdates();
-            $('#updatesModal').removeClass('hidden');
-        });
-    
-        // Click handler for closing the modal
-        $('#closeModal').click(function() {
-            $('#updatesModal').addClass('hidden');
-        });
-    });
-    </script>
     
 
 </body>

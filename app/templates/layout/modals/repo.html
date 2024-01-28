@@ -1,0 +1,77 @@
+<div id="updatesModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+    <div class="relative top-10 mx-auto p-5 border w-11/12 md:w-1/2 lg:w-1/3 shadow-lg rounded-lg bg-white">
+        <div class="flex justify-between items-center border-b pb-3 mb-4">
+            <h3 class="text-lg font-semibold text-gray-900" id="modal-title">
+                <img src="static/images/dash/side/latest.svg" alt="Updates" class="inline-block w-6 h-6 mr-2">Latest Updates
+            </h3>
+            <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                <img src="static/images/dash/side/bye.svg" alt="Close" class="w-6 h-6">
+            </button>
+        </div>
+        <div id="updatesContent">
+            <!-- Updates will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Function to check for new updates
+        function checkForNewUpdates() {
+            $.getJSON('https://api.github.com/repos/wadder12/flaskstatuspage/releases', function(releases) {
+                if (releases && releases.length > 0) {
+                    var latestRelease = releases[0];
+                    var lastSeenRelease = localStorage.getItem('lastSeenRelease');
+    
+                    if (lastSeenRelease !== latestRelease.tag_name) {
+                        $("#updatesIndicator").removeClass('hidden');
+                    }
+                }
+            });
+        }
+    
+        // Function to fetch updates from the public repo
+        function fetchUpdates() {
+            $.getJSON('https://api.github.com/repos/wadder12/flaskstatuspage/releases', function(releases) {
+                if (releases && releases.length > 0) {
+                    var updatesHtml = releases.map(function(release) {
+                        return `
+                            <div class="mb-4">
+                                <h4 class="font-bold">${release.name} (Version: ${release.tag_name})</h4>
+                                <p>${release.body}</p>
+                            </div>
+                        `;
+                    }).join('');
+                    $("#updatesContent").html(updatesHtml);
+    
+                    // Update lastSeenRelease in local storage
+                    localStorage.setItem('lastSeenRelease', releases[0].tag_name);
+                } else {
+                    $("#updatesContent").html("<p>No updates found.</p>");
+                }
+            }).fail(function() {
+                $("#updatesContent").html("<p>Failed to load updates.</p>");
+            });
+        }
+    
+        // Initial check for new updates
+        checkForNewUpdates();
+    
+        // Click handler for the updates button
+        $('#updatesButton').click(function(event) {
+            event.preventDefault();
+            
+            // Fetch and show updates
+            fetchUpdates();
+            $('#updatesModal').removeClass('hidden');
+            $("#updatesIndicator").addClass('hidden'); // Hide the indicator when modal opens
+        });
+    
+        // Click handler for closing the modal
+        $('#closeModal').click(function() {
+            $('#updatesModal').addClass('hidden');
+        });
+    });
+    </script>
+    
+    
