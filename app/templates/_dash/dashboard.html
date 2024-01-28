@@ -20,7 +20,6 @@
 
 <!-- Sidebar -->
 <div id="sidebar" class="flex flex-col w-64 bg-white p-5 shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out h-screen overflow-y-auto">
-    
     <div class="flex-grow">
         <h2 class="text-xl font-bold mb-5">Dashboard</h2>
         
@@ -40,7 +39,12 @@
         <!-- Sidebar Navigation -->
         <nav>
             <ul class="space-y-4 mb-5">
-                <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/fire.svg" alt="Incidents" class="w-6 h-6"><span>Incidents</span></a></li>
+                <li>
+                    <a href="#" class="flex items-center space-x-2 bg-[#ff2400] p-2 rounded-lg text-white font-medium">
+                        <img src="static/images/dash/side/fire.svg" alt="Incidents" class="w-6 h-6">
+                        <span>Incidents</span>
+                    </a>
+                </li>
                 <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/statupdates.svg" alt="Status Updates" class="w-6 h-6"><span>Status Updates</span></a></li>
                 <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/metric.svg" alt="System Metrics" class="w-6 h-6"><span>System Metrics</span></a></li>
                 <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/people.svg" alt="Team Management" class="w-6 h-6"><span>Team Management</span></a></li>
@@ -55,23 +59,47 @@
     <div class="mt-5">
         <hr class="border-t border-gray-300 mb-4">
         <ul class="space-y-4 pb-4">
-            <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/setting1.svg" alt="Settings" class="w-6 h-6"><span>Settings</span></a></li>
-            <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/updates.svg" alt="Updates" class="w-6 h-6"><span>Updates</span></a></li>
-            <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/exitme.svg" alt="Logout" class="w-6 h-6"><span>Logout</span></a></li>
+            <li>
+                <a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/setting1.svg" alt="Settings" class="w-6 h-6"><span>Settings</span></a>
+            </li>
+            <li>
+                <a href="#" id="updatesButton" class="flex items-center space-x-2 bg-[#ffd700] py-2 px-1 rounded-lg text-white -mx-1">
+                    <img src="static/images/dash/side/updates.svg" alt="Updates" class="w-6 h-6">
+                    <span>Updates</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/exitme.svg" alt="Logout" class="w-6 h-6"><span>Logout</span></a>
+            </li>
         </ul>
     </div>
-
 </div>
 
   
 
     <!-- Main Content -->
     <div class="flex-1 p-10">
-      <h1 class="text-3xl font-bold mb-6">Welcome to your Dashboard</h1>
+      <h1 class="text-3xl font-bold mb-6">statusone panel</h1>
     </div>
 
 
   </div>
+
+  <div id="updatesModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full" >
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+        <div class="mt-3 text-center">
+            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Latest Updates</h3>
+            <div class="mt-2" id="updatesContent">
+                <!-- Updates will be loaded here -->
+            </div>
+            <div class="items-center px-4 py-3">
+                <button id="closeModal" class="px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
   <script>
     $(document).ready(function() {
@@ -83,6 +111,44 @@
         });
     });
 </script>
+
+
+<script>
+    $(document).ready(function() {
+        // Function to fetch updates from the public repo
+        function fetchUpdates() {
+            // Here you should put the actual URL of the public repo's updates endpoint
+            $.getJSON('https://api.github.com/repos/username/repo-name/releases', function(data) {
+                var items = [];
+                $.each(data, function(key, val) {
+                    items.push("<li id='" + key + "'>" + val.name + " - " + val.body + "</li>");
+                });
+    
+                // Populate the modal with updates
+                $("<ul/>", {
+                    "class": "updates-list",
+                    html: items.join("")
+                }).appendTo("#updatesContent");
+            });
+        }
+    
+        // Click handler for the updates button
+        $('#updatesButton').click(function() {
+            // Empty previous updates
+            $("#updatesContent").empty();
+    
+            // Fetch and show updates
+            fetchUpdates();
+            $('#updatesModal').removeClass('hidden');
+        });
+    
+        // Click handler for closing the modal
+        $('#closeModal').click(function() {
+            $('#updatesModal').addClass('hidden');
+        });
+    });
+    </script>
+    
 
 </body>
 </html>
