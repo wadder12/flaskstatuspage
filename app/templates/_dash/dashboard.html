@@ -10,7 +10,7 @@
 <body class="bg-gray-100 relative">
 
 <!-- Toggle Button for Sidebar -->
-<div class="md:hidden absolute top-0 right-0 m-4"> <!-- Positioning classes added -->
+<div class="md:hidden absolute top-0 right-0 m-4"> 
     <button id="sidebarToggle" class="p-2">
         <img src="static/images/dash/toggle/action1.svg" alt="Toggle Sidebar" class="block w-6 h-6" id="toggleIcon">
     </button>
@@ -40,17 +40,17 @@
         <nav>
             <ul class="space-y-4 mb-5">
                 <li>
-                    <a href="#" class="flex items-center space-x-2 bg-[#ff2400] p-2 rounded-lg text-white font-medium">
+                    <a href="#" id="loadIncidents" class="flex items-center space-x-2 bg-[#ff2400] p-2 rounded-lg text-white font-medium">
                         <img src="static/images/dash/side/fire.svg" alt="Incidents" class="w-6 h-6">
                         <span>Incidents</span>
                     </a>
                 </li>
-                <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/statupdates.svg" alt="Status Updates" class="w-6 h-6"><span>Status Updates</span></a></li>
-                <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/metric.svg" alt="System Metrics" class="w-6 h-6"><span>System Metrics</span></a></li>
-                <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/people.svg" alt="Team Management" class="w-6 h-6"><span>Team Management</span></a></li>
-                <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/note.svg" alt="Notifications" class="w-6 h-6"><span>User Notifications</span></a></li>
-                <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/api.svg" alt="API Integrations" class="w-6 h-6"><span>API Integrations</span></a></li>
-                <li><a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/log1.svg" alt="Logs" class="w-6 h-6"><span>Logs</span></a></li>
+                <li><a href="#" id="loadStatusUpdates" class="flex items-center space-x-2"><img src="static/images/dash/side/statupdates.svg" alt="Status Updates" class="w-6 h-6"><span>Status Updates</span></a></li>
+                <li><a href="#" id="loadSystemMetrics" class="flex items-center space-x-2"><img src="static/images/dash/side/metric.svg" alt="System Metrics" class="w-6 h-6"><span>System Metrics</span></a></li>
+                <li><a href="#" id="loadTeamManagement" class="flex items-center space-x-2"><img src="static/images/dash/side/people.svg" alt="Team Management" class="w-6 h-6"><span>Team Management</span></a></li>
+                <li><a href="#" id="loadUserNotifications" class="flex items-center space-x-2"><img src="static/images/dash/side/note.svg" alt="Notifications" class="w-6 h-6"><span>User Notifications</span></a></li>
+                <li><a href="#" id="loadAPIIntegrations" class="flex items-center space-x-2"><img src="static/images/dash/side/api.svg" alt="API Integrations" class="w-6 h-6"><span>API Integrations</span></a></li>
+                <li><a href="#" id="loadlogs" class="flex items-center space-x-2"><img src="static/images/dash/side/log1.svg" alt="Logs" class="w-6 h-6"><span>Logs</span></a></li>
             </ul>
         </nav>
     </div>
@@ -60,18 +60,17 @@
         <hr class="border-t border-gray-300 mb-4">
         <ul class="space-y-4 pb-4">
             <li>
-                <a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/setting1.svg" alt="Settings" class="w-6 h-6"><span>Settings</span></a>
+                <a href="#" id="loadsettings" class="flex items-center space-x-2"><img src="static/images/dash/side/setting1.svg" alt="Settings" class="w-6 h-6"><span>Settings</span></a>
             </li>
             <li>
                 <a href="#" id="updatesButton" class="relative flex items-center space-x-2 bg-[#ffd700] py-2 px-1 rounded-lg text-white -mx-1">
-                    <img src="static/images/dash/side/updates.svg" alt="Updates" class="w-6 h-6">
+                    <img src="static/images/dash/side/updates.svg" alt="Updates" class="w-6 h-6 relative">
                     <span>Updates</span>
-                    <span id="updatesIndicator" class="hidden absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full"></span>
+                    <span id="updatesIndicator" class="hidden absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full transform -translate-x-41 -translate-y-1/2"></span>
                 </a>
-            </li>
-            
+            </li>            
             <li>
-                <a href="#" class="flex items-center space-x-2"><img src="static/images/dash/side/exitme.svg" alt="Logout" class="w-6 h-6"><span>Logout</span></a>
+                <a href="/auth/logout" class="flex items-center space-x-2"><img src="static/images/dash/side/exitme.svg" alt="Logout" class="w-6 h-6"><span>Logout</span></a>
             </li>
         </ul>
     </div>
@@ -82,6 +81,14 @@
     <!-- Main Content -->
     <div class="flex-1 p-10">
       <h1 class="text-3xl font-bold mb-6">statusone panel</h1>
+      <div id="incidentsContent" class="content-section" style="display: none;">{% include 'layout/sidebars/incidents.html'%}</div>
+        <div id="statusUpdatesContent" class="content-section" style="display: none;">{% include 'layout/sidebars/statusupdates.html' %}</div>
+        <div id="systemMetricsContent" class="content-section" style="display: none;">{% include 'layout/sidebars/systemmetrics.html' %}</div>
+        <div id="teamManagementContent" class="content-section" style="display: none;">{% include 'layout/sidebars/teammanagement.html' %}</div>
+        <div id="userNotificationsContent" class="content-section" style="display: none;">{% include 'layout/sidebars/usernotifications.html' %}</div>
+        <div id="apiIntegrationsContent" class="content-section" style="display: none;">{% include 'layout/sidebars/apiintegrations.html' %}</div>
+        <div id="logsContent" class="content-section" style="display: none;">{% include 'layout/sidebars/logs.html' %}</div>
+        <div id="settingsContent" class="content-section" style="display: none;">{% include 'layout/sidebars/settings.html' %}</div>
     </div>
 
 
@@ -102,6 +109,66 @@
 </script>
 
     
+<script>
+    $(document).ready(function() {
+        function loadContent(contentId) {
+            $('.content-section').hide();
+            $('#' + contentId).show();
+        }
+    
+        $('#loadIncidents').click(function(e) {
+            e.preventDefault();
+            loadContent('incidentsContent');
+        });
+    
+        $('#loadStatusUpdates').click(function(e) {
+            e.preventDefault();
+            loadContent('statusUpdatesContent');
+        });
+
+        $('#loadSystemMetrics').click(function(e) {
+            e.preventDefault();
+            loadContent('systemMetricsContent');
+        });
+
+        $('#loadTeamManagement').click(function(e) {
+            e.preventDefault();
+            loadContent('teamManagementContent');
+        });
+
+        $('#loadUserNotifications').click(function(e) {
+            e.preventDefault();
+            loadContent('userNotificationsContent');
+        });
+
+        $('#loadAPIIntegrations').click(function(e) {
+            e.preventDefault();
+            loadContent('apiIntegrationsContent');
+        });
+
+        $('#loadlogs').click(function(e) {
+            e.preventDefault();
+            loadContent('logsContent');
+        });
+
+        $('#loadsettings').click(function(e) {
+            e.preventDefault();
+            loadContent('settingsContent');
+        });
+    
+    
+        $('.content-section').hide();
+        $('#incidentsContent').show(); // Show the first section 
+    
+        // Sidebar Toggle
+        var isSidebarOpen = false;
+        $('#sidebarToggle').click(function() {
+            $('#sidebar').toggleClass('-translate-x-full');
+            isSidebarOpen = !isSidebarOpen;
+            $('#toggleIcon').attr('src', isSidebarOpen ? 'static/images/dash/toggle/action2.svg' : 'static/images/dash/toggle/action1.svg');
+        });
+    });
+    </script>
     
 
 </body>

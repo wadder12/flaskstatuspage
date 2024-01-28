@@ -31,6 +31,13 @@ def login():
 
     return render_template('auth/login.html')
 
+@auth_blueprint.route('/logout')
+def logout():
+    session.pop('user_id', None)
+
+    flash('You have been logged out.')
+    return redirect(url_for('auth.login'))
+
 @auth_blueprint.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
