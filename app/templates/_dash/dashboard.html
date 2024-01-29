@@ -27,6 +27,8 @@
         margin-left: 0; /* Set margin-left to 0 when sidebar is hidden */
       }
     }
+
+
     </style>
 </head>
 <body class="bg-gray-100 relative">
@@ -41,11 +43,10 @@
 <div class="flex h-screen">
 
 <!-- Sidebar -->
-<div id="sidebar" class="flex flex-col w-64 bg-white p-5 shadow-lg md:translate-x-0 transition-transform duration-300 ease-in-out h-screen overflow-y-auto">
+<div id="sidebar" class="flex flex-col w-64 bg-white p-5 shadow-lg md:translate-x-0 transition-transform duration-300 ease-in-out h-screen overflow-y-auto hidden md:block md:w-1/5 bg-white p-5">
     <div class="flex-grow">
         <h2 class="text-xl font-bold mb-5">Dashboard</h2>
-        
-        <!-- User Info Section -->
+
         <div class="bg-gray-100 p-4 rounded-lg mb-5">
             <div class="flex items-center mb-3">
                 <img src="static/images/dash/user.svg" alt="Username Icon" class="w-6 h-6 mr-2">
@@ -57,8 +58,6 @@
                 <span class="font-medium">{{ status_page_name }}</span>
             </div>
         </div>
-
-        <!-- Sidebar Navigation -->
         <nav>
             <ul class="space-y-4 mb-5">
                 <li>
@@ -102,9 +101,9 @@
   
 
     <!-- Main Content -->
-    <div class="flex-1 p-10">
-      <h1 class="text-3xl font-bold mb-6">statusone panel</h1>
-      <div id="incidentsContent" class="content-section" style="display: none;">{% include 'layout/sidebars/incidents.html'%}</div>
+    <div class="flex-grow p-10 border-4 border-indigo-200 border-x-indigo-500" id="main-content">
+        <h1 class="text-3xl font-bold mb-6">statusone panel</h1>
+        <div id="incidentsContent" class="content-section" style="display: none;">{% include 'layout/sidebars/incidents.html'%}</div>
         <div id="statusUpdatesContent" class="content-section" style="display: none;">{% include 'layout/sidebars/statusupdates.html' %}</div>
         <div id="systemMetricsContent" class="content-section" style="display: none;">{% include 'layout/sidebars/systemmetrics.html' %}</div>
         <div id="teamManagementContent" class="content-section" style="display: none;">{% include 'layout/sidebars/teammanagement.html' %}</div>
@@ -114,96 +113,53 @@
         <div id="settingsContent" class="content-section" style="display: none;">{% include 'layout/sidebars/settings.html' %}</div>
     </div>
 
+    {% include 'layout/modals/repo.html' %}
 
   </div>
 
-  {% include 'layout/modals/repo.html' %}
 
 
+
+    
   <script>
     $(document).ready(function() {
-      var isSidebarOpen = false;
-      $('#sidebarToggle').click(function() {
-        if (isSidebarOpen) {
-          $('#sidebar').css('transform', 'translateX(-100%)');
-          $('#main-content').css('margin-left', '0');
-        } else {
-          $('#sidebar').css('transform', 'translateX(0)');
-          $('#main-content').css('margin-left', '80%');
-        }
-        isSidebarOpen = !isSidebarOpen;
-        $('#toggleIcon').attr('src', isSidebarOpen ? 'static/images/dash/toggle/action2.svg' : 'static/images/dash/toggle/action1.svg');
-      });
-    });
-    </script>
-
+        var isSidebarOpen = false;
     
-<script>
-    $(document).ready(function() {
-        function loadContent(contentId) {
-            $('.content-section').hide();
-            $('#' + contentId).show();
-        }
-
-        function setActiveNavLink() {
-            $('a.nav-link').removeClass('active-nav-link').find('.arrow-icon').remove();
-            $(this).addClass('active-nav-link').append('<img src="static/images/dash/side/activelink.svg" class="arrow-icon" style="margin-left: 5px;"/>');
-        }
-
-        $('a.nav-link').click(function(e) {
-            e.preventDefault();
-            setActiveNavLink.call(this);
-            var contentId = this.id.replace('load', '') + 'Content';
-            loadContent(contentId);
-        });
-
-
-        $('#loadIncidents').click(function(e) {
-            e.preventDefault();
-            loadContent('incidentsContent');
+        // Sidebar Toggle
+        $('#sidebarToggle').click(function() {
+            $('#sidebar').css('transform', isSidebarOpen ? 'translateX(-100%)' : 'translateX(0)');
+            isSidebarOpen = !isSidebarOpen;
+            $('#toggleIcon').attr('src', isSidebarOpen ? 'static/images/dash/toggle/action2.svg' : 'static/images/dash/toggle/action1.svg');
         });
     
-        $('#loadStatusUpdates').click(function(e) {
-            e.preventDefault();
-            loadContent('statusUpdatesContent');
-        });
-
-        $('#loadSystemMetrics').click(function(e) {
-            e.preventDefault();
-            loadContent('systemMetricsContent');
-        });
-
-        $('#loadTeamManagement').click(function(e) {
-            e.preventDefault();
-            loadContent('teamManagementContent');
-        });
-
-        $('#loadUserNotifications').click(function(e) {
-            e.preventDefault();
-            loadContent('userNotificationsContent');
-        });
-
-        $('#loadAPIIntegrations').click(function(e) {
-            e.preventDefault();
-            loadContent('apiIntegrationsContent');
-        });
-
-        $('#loadlogs').click(function(e) {
-            e.preventDefault();
-            loadContent('logsContent');
-        });
-
-        $('#loadsettings').click(function(e) {
-            e.preventDefault();
-            loadContent('settingsContent');
-        });
-    
-    
+        // Load Content
+    function loadContent(contentId) {
+        console.log('Trying to load content for:', contentId);
         $('.content-section').hide();
-        $('#incidentsContent').show(); // Show the first section 
-    
+        $('#' + contentId).show();
+    }
+
+    // Set Active Nav Link
+    function setActiveNavLink(clickedLink) {
+        $('a.nav-link').removeClass('active-nav-link').find('.arrow-icon').remove();
+        clickedLink.addClass('active-nav-link').append('<img src="static/images/dash/side/activelink.svg" class="arrow-icon" style="margin-left: 5px;"/>');
+    }
+
+    // Nav Link Click
+    $('a.nav-link').click(function(e) {
+        e.preventDefault();
+        var contentId = $(this).attr('id').replace('load', '') + 'Content';
+        contentId = contentId.charAt(0).toLowerCase() + contentId.slice(1); // Ensure proper casing
+        setActiveNavLink($(this));
+        loadContent(contentId);
     });
-    </script>
+
+    // Initialize first tab content
+    loadContent('incidentsContent');
+});
+</script>
+
+    
     
 
 </body>

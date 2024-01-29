@@ -2,54 +2,107 @@
     <div class="flex flex-wrap -mx-4">
         <!-- Left Column -->
         <div class="w-full lg:w-1/2 px-4 mb-6 lg:mb-0">
-            <!-- Status Page Name -->
+            <!-- Incident Title -->
             <div class="mb-6">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="status-page-name">
-                    Status Page Name
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="incident-title">
+                    Incident Title
                 </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="status-page-name" type="text" placeholder="Status Page Name">
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="incident-title" type="text" placeholder="Incident Title">
             </div>
 
-            <!-- Status Page Profile Picture -->
+            <!-- Incident Description -->
             <div class="mb-6">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="status-page-pfp">
-                    Status Page Profile Picture
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="incident-description">
+                    Description
                 </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="status-page-pfp" type="file">
+                <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="incident-description" placeholder="Describe the incident"></textarea>
             </div>
         </div>
 
-        <!-- Right Column -->
-        <div class="w-full lg:w-1/2 px-4">
-            <!-- Change Password -->
-            <div class="mb-6">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-                    Change Password
-                </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="********">
-            </div>
-
-            <!-- Change Username -->
-            <div class="mb-6">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                    Change Username
-                </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username">
-            </div>
+        <!-- Time of Downtime -->
+        <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="downtime">
+                Time of Downtime
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="downtime" type="datetime-local">
         </div>
     </div>
 
-    <!-- Buttons -->
-    <div class="flex justify-center space-x-4 mt-6">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-            Save Changes
-        </button>
-        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-            Delete Status Page
-        </button>
-        <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-            Request Data
-        </button>
+    <!-- Right Column -->
+    <div class="w-full lg:w-1/2 px-4">
+        <!-- Incident Tags -->
+        <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="incident-tags">
+                Tags
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="incident-tags" type="text" placeholder="Select tags">
+            <div class="flex flex-wrap gap-2">
+                <!-- Predefined tags -->
+                <span class="tag">Outage</span>
+                <span class="tag">Maintenance</span>
+                <!-- Add more predefined tags here -->
+            </div>
+        </div>
+
+        <!-- Incident Status -->
+        <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="status">
+                Status
+            </label>
+            <select class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="status">
+                <option value="investigating">Investigating</option>
+                <option value="identified">Identified</option>
+                <option value="monitoring">Monitoring</option>
+                <option value="resolved">Resolved</option>
+            </select>
+        </div>
+
+        <!-- Resolution Information -->
+        <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="resolution-info">
+                Resolution Information
+            </label>
+            <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="resolution-info" placeholder="Details on the resolution"></textarea>
+        </div>
     </div>
 </div>
 
+<!-- Buttons -->
+<div class="flex justify-center space-x-4 mt-6">
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+        Report settings page
+    </button>
+    <!-- Add more buttons here if needed -->
+</div>
+
+<style>
+/* Add this to your CSS */
+.tag {
+border: 1px solid #cbd5e0;
+border-radius: 9999px;
+padding: 0.25rem 0.75rem;
+cursor: pointer;
+background-color: #f3f4f6;
+user-select: none;
+}
+
+.tag:hover {
+background-color: #e2e8f0;
+}
+</style>
+
+<script>
+// Add this to your JavaScript
+$(document).ready(function() {
+$('.tag').on('click', function() {
+    var tagsInput = $('#incident-tags');
+    var currentTags = tagsInput.val().split(',').map(tag => tag.trim()).filter(tag => tag.length);
+    var newTag = $(this).text();
+    
+    if (!currentTags.includes(newTag)) {
+        currentTags.push(newTag);
+        tagsInput.val(currentTags.join(', '));
+    }
+});
+});
+</script>
