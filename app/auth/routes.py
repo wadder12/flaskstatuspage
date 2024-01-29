@@ -1,6 +1,8 @@
 # auth/routes.py
 from flask import render_template, request, redirect, url_for, flash, session
 from . import auth_blueprint
+from flask_dance.contrib.github import make_github_blueprint, github
+
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 from supabase import create_client, Client
@@ -12,6 +14,27 @@ url: str = os.getenv('SUPABASE_URL')
 key: str = os.getenv('SUPABASE_KEY')
 supabase: Client = create_client(url, key)
 
+github_blueprint = make_github_blueprint(
+    client_id=os.getenv('GITHUB_CLIENT_ID'),
+    client_secret=os.getenv('GITHUB_CLIENT_SECRET'),
+)
+
+
+@auth_blueprint.route('/github')
+def github_login():
+    if not github.authorized:
+        return redirect(url_for('github.login'))
+    account_info = github.get('/user')
+    if account_info.ok:
+        account_info_json = account_info.json()
+        username = account_info_json['login']
+        # Here you can add logic to check if the user exists in your database,
+        # and if not, you can create the user or handle accordingly
+        session['user_id'] = username  # Or use a unique identifier from your database
+        flash('Logged in successfully via GitHub.')
+        return redirect(url_for('main.dashboard'))
+    flash('GitHub authentication failed.')
+    return redirect(url_for('auth.login'))
 
 @auth_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
